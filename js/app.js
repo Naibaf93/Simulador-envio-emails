@@ -6,7 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputMensaje = document.querySelector('#mensaje');
 
     //Asignar Eventos
-    inputEmail.addEventListener('blur', function(e) {
-        console.log(e.target);
-    });
+    inputEmail.addEventListener('blur', validar);
+    inputAsunto.addEventListener('blur', validar);
+    inputMensaje.addEventListener('blur', validar);
+
+    function validar() {
+        console.log(e.target.value);
+    }
+
 });
