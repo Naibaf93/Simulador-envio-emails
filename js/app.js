@@ -21,14 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     formulario.addEventListener('submit', enviarEmail);
     btnReset.addEventListener('click', function(e) {
         e.preventDefault();
-
-        // reiniciar el objeto
-        email.email = '';
-        email.asunto = '';
-        email.mensaje = '';
-
-        formulario.reset();
-        comprobarEmail();
+        resetFormulario();    
     })
 
     function enviarEmail(e) {
@@ -36,6 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         spinner.classList.add('flex');
         spinner.classList.remove('hidden');
+
+        setInterval(() => {
+            spinner.classList.remove('flex');
+            spinner.classList.add('hidden');
+
+            resetFormulario();
+        }, 3000);
     }
 
     function validar(e) {
@@ -104,4 +104,13 @@ document.addEventListener('DOMContentLoaded', function () {
         btnSubmit.disabled = false;
     }
 
+    function resetFormulario() {
+        // reiniciar el objeto
+        email.email = '';
+        email.asunto = '';
+        email.mensaje = '';
+
+        formulario.reset();
+        comprobarEmail();
+    }
 }); 
