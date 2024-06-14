@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     // Seleccionar los elementos de la interfaz
     const inputEmail = document.querySelector('#email');
+    const inputCC = document.querySelector('#cc');
     const inputAsunto = document.querySelector('#asunto');
     const inputMensaje = document.querySelector('#mensaje');
     const formulario = document.querySelector('#formulario');
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Asignar Eventos
     inputEmail.addEventListener('input', validar);
+    inputCC.addEventListener('input', validar);
     inputAsunto.addEventListener('input', validar);
     inputMensaje.addEventListener('input', validar);
     formulario.addEventListener('submit', enviarEmail);
@@ -58,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (e.target.id === 'email' && !validarEmail(e.target.value)) {
+        if (e.target.id === 'email' && !validarEmail(e.target.value) || e.target.id === 'cc' && !validarEmail(e.target.value)) {
             mostrarAlerta('El email no es valido', e.target.parentElement);
             email[e.target.name] = '';
             comprobarEmail();
