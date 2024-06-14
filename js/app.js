@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const email = {
         email: '',
         asunto: '',
-        mensaje: ''
+        mensaje: '',
     }
     // Seleccionar los elementos de la interfaz
     const inputEmail = document.querySelector('#email');
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Asignar Eventos
     inputEmail.addEventListener('input', validar);
-    inputCC.addEventListener('input', validar);
+    inputCC.addEventListener('input', validarCC);
     inputAsunto.addEventListener('input', validar);
     inputMensaje.addEventListener('input', validar);
     formulario.addEventListener('submit', enviarEmail);
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (e.target.id === 'email' && !validarEmail(e.target.value) || e.target.id === 'cc' && !validarEmail(e.target.value)) {
+        if (e.target.id === 'email' && !validarEmail(e.target.value)) {
             mostrarAlerta('El email no es valido', e.target.parentElement);
             email[e.target.name] = '';
             comprobarEmail();
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
         comprobarEmail();
     }
 
+    // Aalerta
     function mostrarAlerta(mensaje, referencia) {
         
         limpiarAlerta(referencia);
@@ -119,6 +120,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function resetFormulario() {
+        limpiarAlerta(inputEmail.parentElement);
+        limpiarAlerta(inputCC.parentElement);
+        limpiarAlerta(inputAsunto.parentElement);
+        limpiarAlerta(inputMensaje.parentElement);
         // reiniciar el objeto
         email.email = '';
         email.asunto = '';
@@ -126,5 +131,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         formulario.reset();
         comprobarEmail();
+    }
+
+    function validarCC(e) {
+        email[e.target.name] = e.target.value.trim().toLowerCase();
+
+        if(!validarEmail(e.target.value)){
+            mostrarAlerta('El email no es válido', e.target.parentElement);
+            email[e.target.name] = '';
+            comprobarEmail();
+        }else{
+            limpiarAlerta(e.target.parentElement);
+            comprobarEmail();
+        }
+
+        if(e.target.value === ''){
+            delete email.cc;
+            limpiarAlerta(e.target.parentElement);
+            comprobarEmail();
+            return;
+        }
     }
 }); 
